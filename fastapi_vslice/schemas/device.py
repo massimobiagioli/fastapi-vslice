@@ -6,7 +6,6 @@ from pydantic import BaseModel
 class DeviceBase(BaseModel):
     name: str
     address: str
-    is_active: bool = False
 
 
 class DeviceCreate(DeviceBase):
@@ -17,6 +16,7 @@ class Device(DeviceBase):
     id: uuid.UUID
     name: str
     address: str
+    is_active: bool
 
     class Config:
         orm_mode = True

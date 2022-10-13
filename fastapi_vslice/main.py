@@ -1,21 +1,15 @@
-import uuid
+from fastapi import FastAPI
 
-from fastapi import FastAPI, Depends
-
-from fastapi_vslice.crud.device import create_device
-from fastapi_vslice.database import engine, Base, get_session
-from fastapi_vslice.schemas.device import DeviceCreate
+from fastapi_vslice.shared.database import engine, Base
+from fastapi_vslice.routers import device
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+app.include_router(device.router)
 
-@app.post("/test")
-async def test_create(device: DeviceCreate, session=Depends(get_session)):
-    create_device(
-        session=session,
-        device=device
-    )
 
-    return {"message": "new device created"}
+@app.get("/")
+async def home():
+    return {"message": "Hello World"}

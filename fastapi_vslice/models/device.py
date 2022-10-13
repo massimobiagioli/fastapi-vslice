@@ -1,7 +1,7 @@
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import Boolean, Column, String
 
-from fastapi_vslice.database import Base
+from fastapi_vslice.shared.database import Base
 
 
 class Device(Base):
