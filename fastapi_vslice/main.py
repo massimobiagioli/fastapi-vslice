@@ -1,11 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from starlette.responses import HTMLResponse
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
 
 from fastapi_vslice.shared.database import engine, Base
 from fastapi_vslice.routers import device
-from fastapi import Request
 
 Base.metadata.create_all(bind=engine)
 

@@ -16,6 +16,14 @@ router = APIRouter(
 templates = Jinja2Templates(directory="fastapi_vslice/")
 
 
+@router.get("/list", response_class=HTMLResponse)
+async def new_device(request: Request):
+    return templates.TemplateResponse(
+        name="features/list_devices/list_devices.html",
+        context={"request": request}
+    )
+
+
 @router.get("/new", response_class=HTMLResponse)
 async def new_device(request: Request):
     return templates.TemplateResponse(
