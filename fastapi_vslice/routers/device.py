@@ -13,12 +13,15 @@ router = APIRouter(
     prefix="/devices",
 )
 
-templates = Jinja2Templates(directory="fastapi_vslice/features/")
+templates = Jinja2Templates(directory="fastapi_vslice/")
 
 
 @router.get("/new", response_class=HTMLResponse)
 async def new_device(request: Request):
-    return templates.TemplateResponse("create_device/create_device.html", {"request": request})
+    return templates.TemplateResponse(
+        name="features/create_device/create_device.html",
+        context={"request": request}
+    )
 
 
 @router.post("/", response_model=Device)
