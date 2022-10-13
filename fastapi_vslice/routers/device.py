@@ -19,10 +19,17 @@ templates = Jinja2Templates(directory="fastapi_vslice/")
 
 
 @router.get("/list", response_class=HTMLResponse)
-async def list_devices(request: Request):
+async def list_devices(
+    request: Request,
+    session=Depends(get_session)
+):
+    devices = list_devices_query(session=session)
     return templates.TemplateResponse(
         name="features/list_devices/list_devices.html",
-        context={"request": request}
+        context={
+            "request": request,
+            "devices": devices
+        }
     )
 
 
