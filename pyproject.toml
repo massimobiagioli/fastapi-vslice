@@ -13,6 +13,7 @@ uvicorn = {extras = ["standard"], version = "^0.18.3"}
 SQLAlchemy = "^1.4.41"
 psycopg2-binary = "^2.9.4"
 Jinja2 = "^3.1.2"
+python-multipart = "^0.0.5"
 
 
 [build-system]

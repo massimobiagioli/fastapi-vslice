@@ -1,55 +1,28 @@
 {% extends "templates/base.html" %}
 
 {% block content %}
-<form id="createDeviceForm">
+<form method="post">
     <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" placeholder="Enter device name">
+        <input type="text" class="form-control" id="name" name="name" placeholder="Enter device name">
     </div>
     <div class="form-group">
         <label for="address">Address</label>
-        <input type="text" class="form-control" id="address" placeholder="Enter device address">
+        <input type="text" class="form-control" id="address" name="address" placeholder="Enter device address">
     </div>
     <button type="submit" class="btn btn-primary">Confirm</button>
 </form>
 <br>
-<div id="notificationMessage" class="alert alert-success" role="alert"></div>
-<div id="errorMessage" class="alert alert-danger" role="alert"></div>
-{% endblock %}
-
-{% block scripts %}
-<script>
-    $(document).ready(function() {
-        $('#notificationMessage').hide();
-        $('#errorMessage').hide();
-
-        $('#createDeviceForm').submit(function(event) {
-            event.preventDefault();
-
-            $('#notificationMessage').hide();
-            $('#errorMessage').hide();
-
-            let name = $('#name').val();
-            let address = $('#address').val();
-            let data = {
-                "name": name,
-                "address": address
-            };
-            $.ajax({
-                url: '/devices',
-                type: 'POST',
-                data: JSON.stringify(data),
-                contentType: 'application/json',
-                success: function(result) {
-                    $('#notificationMessage').text(`Device with id: ${result.id} created successfully`);
-                    $('#notificationMessage').show();
-                },
-                error: function(error) {
-                    $('#errorMessage').text('Error creating device');
-                    $('#errorMessage').show();
-                }
-            });
-        });
-    });
-</script>
+{% if created_device_id %}
+<div id="notificationMessage" class="alert alert-success" role="alert">New device with id: {{created_device_id}} was inserted!</div>
+{% endif %}
+{% if errors %}
+<div id="errorMessage" class="alert alert-danger" role="alert">
+    <ul>
+        {% for error in errors %}
+        <li>{{error}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
 {% endblock %}
