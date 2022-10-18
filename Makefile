@@ -1,4 +1,4 @@
-.PHONY: up down start-local test
+.PHONY: up down start-local test coverage
 
 up:
 	docker compose up -d --remove-orphans
@@ -11,3 +11,6 @@ start-local:
 
 test:
 	poetry run pytest -vv
+
+coverage:
+	poetry run pytest --cov
