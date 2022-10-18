@@ -1,3 +1,4 @@
+import asyncio
 import uuid
 
 import pytest as pytest
@@ -80,3 +81,18 @@ def create_activated_device(session):
         ),
         session
     )
+
+
+@pytest.fixture
+def new_device_request(mocker):
+    def _new_device_request(name: str = None, address: str = None):
+        form_future = asyncio.Future()
+        form_future.set_result({
+            'name': name,
+            'address': address
+        })
+        request = mocker.MagicMock()
+        request.form = mocker.MagicMock(return_value=form_future)
+        return request
+
+    return _new_device_request
