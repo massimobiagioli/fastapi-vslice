@@ -15,12 +15,12 @@ app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 
 app.include_router(api_device.router)
 
-app.include_router(device.router)
+app.include_router(device.router, include_in_schema=False)
 
 templates = Jinja2Templates(directory="fastapi_vslice/")
 
 
-@app.get("/", response_class=HTMLResponse)
+@app.get("/", response_class=HTMLResponse, include_in_schema=False)
 async def home(request: Request):
     return templates.TemplateResponse(
         name="templates/home.html",
