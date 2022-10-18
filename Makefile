@@ -12,5 +12,5 @@ start-local:
 test:
 	poetry run pytest -vv
 
-coverage:
+coverage: test
 	poetry run pytest --cov=fastapi_vslice tests/
