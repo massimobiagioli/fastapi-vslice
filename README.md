@@ -38,3 +38,8 @@ Launch test with coverage
 ```
 make coverage
 ```
+
+Launch test with features coverage
+```
+make coverage-features
+```
