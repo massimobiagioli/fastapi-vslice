@@ -34,11 +34,6 @@ async def list_devices(
     )
 
 
-@router.get("/", response_model=List[Device])
-async def get_devices(session=Depends(get_session)) -> List[Device]:
-    return list_devices_query(session=session)
-
-
 @router.get("/new", response_class=HTMLResponse)
 async def new_device(request: Request):
     return templates.TemplateResponse(
@@ -70,18 +65,4 @@ async def new_device(
     return templates.TemplateResponse(
         name="features/create_device/create_device.html",
         context={"request": request, "created_device_id": created_device.id}
-    )
-
-
-@router.post("/", response_model=Device)
-async def create_device(
-    device: DeviceCreate,
-    session=Depends(get_session),
-) -> Device:
-    return create_device_command_handler(
-        command=CreateDeviceCommand(
-            device_id=uuid.uuid4(),
-            payload=device
-        ),
-        session=session
     )
