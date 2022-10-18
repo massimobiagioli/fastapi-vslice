@@ -1,4 +1,4 @@
-def test_list_all_devices(devices, client):
+def test_list_all_devices(create_devices, client):
     response = client.get("/api/devices")
 
     assert response.status_code == 200
