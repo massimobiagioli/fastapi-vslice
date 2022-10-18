@@ -1,0 +1,17 @@
+{% extends "templates/base.html" %}
+
+{% block content %}
+<form method="post">
+    <div class="form-group">
+        <p>Device with id: <strong>{{ device_id }}</strong> will be deactivated</p>
+    </div>
+    <button type="submit" class="btn btn-primary">Confirm</button>
+</form>
+<br>
+{% if device_deactivated %}
+<div id="notificationMessage" class="alert alert-success" role="alert">The device was deactivated!</div>
+{% endif %}
+{% if device_deactivated == False %}
+<div id="errorMessage" class="alert alert-danger" role="alert">Device deactivation error</div>
+{% endif %}
+{% endblock %}

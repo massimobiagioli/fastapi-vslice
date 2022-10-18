@@ -8,6 +8,8 @@ from fastapi_vslice.features.activate_device.activate_device_command import acti
     ActivateDeviceCommand
 from fastapi_vslice.features.create_device.create_device_command import create_device_command_handler, \
     CreateDeviceCommand
+from fastapi_vslice.features.deactivate_device.deactivate_device_command import deactivate_device_command_handler, \
+    DeactivateDeviceCommand
 from fastapi_vslice.features.list_devices.list_devices_query import list_devices_query
 from fastapi_vslice.schemas.device import Device, DeviceCreate
 from fastapi_vslice.shared.database import get_session
@@ -43,6 +45,19 @@ async def activate_device(
 ) -> Device:
     return activate_device_command_handler(
         command=ActivateDeviceCommand(
+            device_id=device_id
+        ),
+        session=session
+    )
+
+
+@router.patch("/{device_id}/deactivate", response_model=Device)
+async def deactivate_device(
+        device_id: uuid.UUID,
+        session=Depends(get_session),
+) -> Device:
+    return deactivate_device_command_handler(
+        command=DeactivateDeviceCommand(
             device_id=device_id
         ),
         session=session
