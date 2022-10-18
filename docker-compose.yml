@@ -11,6 +11,15 @@ services:
       - '5432:5432'
     volumes:
       - ./data:/var/lib/postgresql/data
+  db-test:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=device-man
+      - POSTGRES_PASSWORD=device-man
+      - POSTGRES_DB=device-man-test
+    ports:
+      - '5433:5432'
 volumes:
   db:
     driver: local
