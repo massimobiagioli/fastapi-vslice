@@ -1,5 +1,6 @@
 def test_list_all_devices(devices, client):
     response = client.get("/api/devices")
+
     assert response.status_code == 200
     assert len(response.json()) == 2
     assert response.json() == [

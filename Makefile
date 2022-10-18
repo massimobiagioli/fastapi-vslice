@@ -13,4 +13,4 @@ test:
 	poetry run pytest -vv
 
 coverage:
-	poetry run pytest --cov
+	poetry run pytest --cov=fastapi_vslice tests/
