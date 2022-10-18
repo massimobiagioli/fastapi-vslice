@@ -5,6 +5,8 @@ from fastapi import APIRouter, Depends, Request
 from starlette.responses import HTMLResponse
 from starlette.templating import Jinja2Templates
 
+from fastapi_vslice.features.activate_device.activate_device_command import activate_device_command_handler, \
+    ActivateDeviceCommand
 from fastapi_vslice.features.create_device.create_device_form import CreateDeviceForm
 from fastapi_vslice.features.list_devices.list_devices_query import list_devices_query
 from fastapi_vslice.shared.database import get_session
@@ -44,8 +46,8 @@ async def new_device(request: Request):
 
 @router.post("/new", response_class=HTMLResponse)
 async def new_device(
-    request: Request,
-    session=Depends(get_session)
+        request: Request,
+        session=Depends(get_session)
 ):
     form = CreateDeviceForm(request=request)
     await form.load_data()
@@ -65,4 +67,37 @@ async def new_device(
     return templates.TemplateResponse(
         name="features/create_device/create_device.html",
         context={"request": request, "created_device_id": created_device.id}
+    )
+
+
+@router.get("/{device_id}/activate", response_class=HTMLResponse)
+async def activate_device(
+        device_id: uuid.UUID,
+        request: Request
+):
+    return templates.TemplateResponse(
+        name="features/activate_device/activate_device.html",
+        context={"request": request, "device_id": device_id}
+    )
+
+
+@router.post("/{device_id}/activate", response_class=HTMLResponse)
+async def activate_device(
+        device_id: uuid.UUID,
+        request: Request,
+        session=Depends(get_session)
+):
+    device = activate_device_command_handler(
+        command=ActivateDeviceCommand(
+            device_id=device_id
+        ),
+        session=session
+    )
+    return templates.TemplateResponse(
+        name="features/activate_device/activate_device.html",
+        context={
+            "request": request,
+            "device_id": device_id,
+            "device_activated": device.is_active
+        }
     )

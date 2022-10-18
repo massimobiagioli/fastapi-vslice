@@ -20,7 +20,7 @@
             <td>{% if device.is_active %}<i class="fa-solid fa-check"></i>{% endif %}</td>
             <td>
                 <button  class="btn btn-primary">
-                    <i class="fa-solid fa-play"></i>
+                    <a href="/devices/{{ device.id }}/activate"><i class="fa-solid fa-play"></i></a>
                 </button>
                 <button  class="btn btn-danger">
                     <i class="fa-solid fa-stop"></i>

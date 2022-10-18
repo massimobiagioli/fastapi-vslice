@@ -4,6 +4,8 @@ from typing import List
 
 from fastapi import APIRouter, Depends
 
+from fastapi_vslice.features.activate_device.activate_device_command import activate_device_command_handler, \
+    ActivateDeviceCommand
 from fastapi_vslice.features.create_device.create_device_command import create_device_command_handler, \
     CreateDeviceCommand
 from fastapi_vslice.features.list_devices.list_devices_query import list_devices_query
@@ -29,6 +31,19 @@ async def create_device(
         command=CreateDeviceCommand(
             device_id=uuid.uuid4(),
             payload=device
+        ),
+        session=session
+    )
+
+
+@router.patch("/{device_id}/activate", response_model=Device)
+async def activate_device(
+        device_id: uuid.UUID,
+        session=Depends(get_session),
+) -> Device:
+    return activate_device_command_handler(
+        command=ActivateDeviceCommand(
+            device_id=device_id
         ),
         session=session
     )

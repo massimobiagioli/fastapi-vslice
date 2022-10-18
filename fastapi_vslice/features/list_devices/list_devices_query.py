@@ -9,5 +9,8 @@ from fastapi_vslice.schemas.device import Device
 def list_devices_query(
     session: Session
 ) -> List[Device]:
-    return session.query(DeviceModel).all()
+    return session\
+        .query(DeviceModel)\
+        .order_by(DeviceModel.name)\
+        .all()
 
