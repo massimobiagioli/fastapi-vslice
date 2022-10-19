@@ -29,6 +29,11 @@ Start local server
 make start-local
 ```
 
+Populate db with fake data
+```
+make load-fixtures
+```
+
 Launch tests
 ```
 make test
