@@ -9,6 +9,9 @@ down:
 start-local:
 	uvicorn fastapi_vslice.main:app --reload
 
+load-fixtures:
+	poetry run load_fixtures
+
 test:
 	poetry run pytest -vv
 
