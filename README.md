@@ -12,6 +12,10 @@
 poetry install
 ```
 
+## Environment variables
+
+Duplicate the `.env.dist` file and rename it to `.env`. Then, fill in the values for the environment variables.
+
 ## Commands
 
 Start docker containers:
