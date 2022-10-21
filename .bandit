@@ -1,0 +1,3 @@
+[bandit]
+exclude:./tests/,tests/*
+targets=fastapi_vslice/

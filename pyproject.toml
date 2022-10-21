@@ -23,6 +23,13 @@ Faker = "^15.1.1"
 python-dotenv = "^0.21.0"
 
 
+[tool.poetry.group.dev.dependencies]
+flake8 = "^5.0.4"
+isort = "^5.10.1"
+black = "^22.10.0"
+bandit = "^1.7.4"
+safety = "^2.3.1"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

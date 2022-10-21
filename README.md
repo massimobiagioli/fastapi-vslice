@@ -12,6 +12,12 @@
 poetry install
 ```
 
+## Install pre-commit hooks
+
+```
+pre-commit install
+```
+
 ## Environment variables
 
 Duplicate the `.env.dist` file and rename it to `.env`. Then, fill in the values for the environment variables.
